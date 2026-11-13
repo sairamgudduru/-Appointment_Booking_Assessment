@@ -1,0 +1,117 @@
+APPOINTMENT BOOKING ASSESSMENT - TEST RESULTS
+============================================
+
+1. LOCAL TEST ENVIRONMENT
+-------------------------
+Operating system: Windows 10/11 (platform reported by pytest: win32)
+Python version: 3.9.13
+pytest version: 8.4.2
+pluggy version: 1.6.0
+
+The following results were collected from the project's Windows virtual
+environment (.venv).
+
+2. BOOKING-SPECIFIC TESTS
+------------------------
+Command:
+python -m pytest tests/test_booking.py -v
+
+Collected: 9 tests
+Passed: 9
+Failed: 0
+
+Terminal output:
+
+================================================= test session starts ==================================================
+platform win32 -- Python 3.9.13, pytest-8.4.2, pluggy-1.6.0
+collected 9 items
+
+tests/test_booking.py::test_valid_booking PASSED                                                                  [ 11%]
+tests/test_booking.py::test_same_provider_overlap_rejected PASSED                                                 [ 22%]
+tests/test_booking.py::test_adjacent_start_allowed PASSED                                                         [ 33%]
+tests/test_booking.py::test_adjacent_end_allowed PASSED                                                           [ 44%]
+tests/test_booking.py::test_different_providers_do_not_conflict PASSED                                            [ 55%]
+tests/test_booking.py::test_contained_interval_conflicts PASSED                                                   [ 66%]
+tests/test_booking.py::test_interval_containing_existing_conflicts PASSED                                         [ 77%]
+tests/test_booking.py::test_duplicate_appointment_id_rejected PASSED                                              [ 88%]
+tests/test_booking.py::test_ids_are_trimmed PASSED                                                                [100%]
+
+================================================== 9 passed ==================================================
+
+3. COMPLETE TEST SUITE
+----------------------
+Command:
+python -m pytest -v
+
+Collected: 27 tests
+Passed: 27
+Failed: 0
+
+Terminal output:
+
+================================================= test session starts ==================================================
+platform win32 -- Python 3.9.13, pytest-8.4.2, pluggy-1.6.0
+collected 27 items
+
+tests/test_booking.py::test_valid_booking PASSED                                                                  [  3%]
+tests/test_booking.py::test_same_provider_overlap_rejected PASSED                                                 [  7%]
+tests/test_booking.py::test_adjacent_start_allowed PASSED                                                         [ 11%]
+tests/test_booking.py::test_adjacent_end_allowed PASSED                                                           [ 14%]
+tests/test_booking.py::test_different_providers_do_not_conflict PASSED                                            [ 18%]
+tests/test_booking.py::test_contained_interval_conflicts PASSED                                                   [ 22%]
+tests/test_booking.py::test_interval_containing_existing_conflicts PASSED                                         [ 25%]
+tests/test_booking.py::test_duplicate_appointment_id_rejected PASSED                                              [ 29%]
+tests/test_booking.py::test_ids_are_trimmed PASSED                                                                [ 33%]
+tests/test_cancellation.py::test_cancel_active_booking PASSED                                                     [ 37%]
+tests/test_cancellation.py::test_cancelled_time_can_be_booked_again PASSED                                        [ 40%]
+tests/test_cancellation.py::test_missing_booking_cancellation PASSED                                              [ 44%]
+tests/test_cancellation.py::test_repeated_cancellation PASSED                                                     [ 48%]
+tests/test_cancellation.py::test_cancelling_one_does_not_change_another PASSED                                    [ 51%]
+tests/test_cancellation.py::test_cancelled_id_is_not_reused PASSED                                                [ 55%]
+tests/test_concurrency.py::test_only_one_simultaneous_overlapping_booking_succeeds PASSED                         [ 59%]
+tests/test_concurrency.py::test_simultaneous_different_provider_bookings_both_succeed PASSED                      [ 62%]
+tests/test_validation.py::test_missing_appointment_id PASSED                                                      [ 66%]
+tests/test_validation.py::test_missing_provider_id PASSED                                                        [ 70%]
+tests/test_validation.py::test_naive_start_rejected PASSED                                                       [ 74%]
+tests/test_validation.py::test_naive_end_rejected PASSED                                                         [ 77%]
+tests/test_validation.py::test_string_timestamp_rejected PASSED                                                  [ 81%]
+tests/test_validation.py::test_zero_duration_rejected PASSED                                                     [ 85%]
+tests/test_validation.py::test_negative_duration_rejected PASSED                                                 [ 88%]
+tests/test_validation.py::test_missing_cancel_id_rejected PASSED                                                 [ 92%]
+tests/test_validation.py::test_invalid_booking_does_not_change_existing_state PASSED                              [ 96%]
+tests/test_validation.py::test_non_utc_aware_datetimes_normalized PASSED                                          [100%]
+
+4. TEST SUMMARY AND WHAT IT MEANS
+---------------------------------
+All 27 tests in the complete test suite passed in the latest local Windows
+run in 0.20 seconds, using Python 3.9.13 and pytest 8.4.2. No test failures
+were reported.
+
+The tests cover these areas:
+
+- Booking: A valid booking is accepted. Overlapping appointments for the
+  same provider are rejected. Adjacent appointments and appointments for
+  different providers are allowed. Duplicate IDs and invalid intervals
+  are handled as expected.
+- Cancellation: An active appointment can be cancelled. A cancelled
+  appointment no longer blocks its time slot. Missing or repeated
+  cancellation requests are handled, and cancelling one appointment does
+  not affect another.
+- Concurrency: Simultaneous overlapping booking attempts for the same
+  provider are protected so that only one succeeds. Simultaneous bookings
+  for different providers can both succeed.
+- Validation: Missing identifiers, invalid timestamp values, naive
+  timestamps, and zero or negative durations are rejected. Invalid
+  booking attempts do not modify existing booking data, and timezone-aware
+  timestamps are normalized to UTC.
+
+Conclusion:
+The local Windows test run confirms that all 27 automated tests passed
+for the implemented booking, cancellation, concurrency, and validation
+behaviour.
+
+Note:
+The detailed output above is transcribed from the local Windows test run.
+The first command runs only the booking tests; the second command runs the
+entire test suite. The complete suite result is the overall verification
+result for this project.
